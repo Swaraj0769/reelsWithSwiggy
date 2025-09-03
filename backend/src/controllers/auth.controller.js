@@ -21,4 +21,28 @@ async function registerUser(req, res) {
         fullName, email,
         password: hashedPassword
     })
+
+    const token = jwt.sign({
+        id: user.id
+    }, process.env.JSON_WEB_TOKEN)
+
+    res.cookie('token', token)
+
+    res.status(201).json({
+        message:"User register successfully",
+        user:{
+            _id: user._id,
+            email: user.email,
+            fullName: user.fullName
+        }
+    })
+}
+
+async function loginUser(req, res) {
+    
+}
+
+module.exports = {
+    registerUser,
+    loginUser
 }
