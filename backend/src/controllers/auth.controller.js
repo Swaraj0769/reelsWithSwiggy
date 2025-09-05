@@ -1,4 +1,5 @@
 const userModel = require('../models/user.model')
+const foodPartnerModel = require('../models/fpartner.model')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
@@ -75,7 +76,19 @@ async function loginUser(req, res) {
     })
 }
 
+function logoutUser(req, res) {
+    res.clearCookie('token');
+    res.status(200).json({
+        message: "User Logged out Successfully"
+    })
+}
+
+async function registerFPartner(params) {
+    
+}
+
 module.exports = {
     registerUser,
-    loginUser
+    loginUser,
+    logoutUser, 
 }
