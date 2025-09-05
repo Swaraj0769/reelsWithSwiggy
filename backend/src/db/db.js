@@ -1,7 +1,12 @@
-const express = require('express')
+const mongoose = require('mongoose')
 
-function connectDB(req, res) {
-    
+function connectDB() {
+    mongoose.connect("")
+    .then(()=>{
+        console.log("MongoDb connected");
+    }).catch((err)=>{
+        console.log("MongoDB connnection error:", err);
+    })
 }
 
 module.exports = connectDB
