@@ -19,13 +19,14 @@ async function registerUser(req, res) {
     const hashedPassword = await bcrypt.hash(password, 10)
 
     const user = await userModel.create({
-        fullName, email,
+        fullName, 
+        email,
         password: hashedPassword
     })
 
     const token = jwt.sign({
-        id: user.id
-    }, process.env.JSON_WEB_TOKEN)
+        id: user._id
+    }, process.env.JWT_SECRET)
 
     res.cookie('token', token)
 
@@ -47,7 +48,7 @@ async function loginUser(req, res) {
     })
 
     if(!user){
-        res.status(400).json({
+        return res.status(400).json({
             message:"Invalid email or password"
         })
     }
@@ -55,14 +56,14 @@ async function loginUser(req, res) {
     const isPasswordValid = await bcrypt.compare(password, user.password)
 
     if(!isPasswordValid){
-        res.status(400).json({
+        return res.status(400).json({
             message: "Invalid email or password-"
         })
     }
 
     const token = jwt.sign({
         id: user._id
-    }, process.env.JSON_WEB_TOKEN)
+    }, process.env.JWT_SECRET)
 
     res.cookie("token", token)
 
@@ -106,7 +107,7 @@ async function registerFPartner(params) {
 
     const token = jwt.sign({
         id: foodPartner._id,
-    },process.env.JSON_WEB_TOKEN)
+    },process.env.JWT_SECRET)
 
     res.cookie('token', token)
 
@@ -143,7 +144,7 @@ async function loginFPartner(req, res) {
 
     const token = jwt.sign({
         id: foodPartner._id
-    }, process.env.JSON_WEB_TOKEN)
+    }, process.env.JWT_SECRET)
 
     res.cookie('token', token)
 

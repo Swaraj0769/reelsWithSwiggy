@@ -12,13 +12,13 @@ async function authFoodPartnerMiddleware(req, res, next) {
     }
 
     try {
-        const decoded = jwt.verify(token, process.env.JSON_WEB_TOKEN);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const foodPartner = await foodPartnerModel.findById(decoded.id)
 
         req.foodPartner = foodPartner;
         
         next()
-    } catch (err ) {
+    } catch (err) {
         return res.status(401).json({
             message:" Invalid Token"
         })
@@ -29,5 +29,5 @@ async function authFoodPartnerMiddleware(req, res, next) {
 
 module.exports = {
     authFoodPartnerMiddleware,
-    
+
 }
