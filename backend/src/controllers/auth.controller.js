@@ -84,11 +84,93 @@ function logoutUser(req, res) {
 }
 
 async function registerFPartner(params) {
+    const {name, email, password} = req.body;
+
+    const isAccountAlreadyExist = await foodPartnerModel.findOne({
+        email
+    })
+
+    if(isAccountAlreadyExist){
+        return res.status(400).json({
+            message: "This Food Partner Account already exists"
+        })
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10)
+
+    const foodPartner = await foodPartnerModel.create({
+            name,
+            email,
+            password: hashedPassword
+    })
+
+    const token = jwt.sign({
+        id: foodPartner._id,
+    },process.env.JSON_WEB_TOKEN)
+
+    res.cookie('token', token)
+
+    res.status(201).json({
+        message: "Food Partner registered successfully",
+        foodPartner:{
+            _id: foodPartner._id,
+            name: foodPartner.name,
+            email: foodPartner.email
+        }
+    })
+}
+
+async function loginFPartner(req, res) {
+    const {email, password} = req.body;
+
+    const foodPartner = await foodPartnerModel.findOne({
+        email
+    })
+
+    if(!foodPartner){
+        return res.status(400).json({
+            message: "Invalid email or password"
+        })
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, foodPartner.password)
+
+    if(!isPasswordValid){
+        return res.status(400).json({
+            message:"Invalid email or password"
+        })
+    }
+
+    const token = jwt.sign({
+        id: foodPartner._id
+    }, process.env.JSON_WEB_TOKEN)
+
+    res.cookie('token', token)
+
+    res.status(200).json({
+        message: "Food Partner Login successfully",
+        foodPartner:{
+            _id: foodPartner._id,
+            name: foodPartner.name,
+            email: foodPartner.email
+        }
+    })
     
+    
+}
+
+function logoutFPartner(req, res){
+    res.clearCookie('token');
+    res.status(200).json({
+        message: "Food Partner Logged out Successfully"
+    })
 }
 
 module.exports = {
     registerUser,
     loginUser,
     logoutUser, 
+    registerFPartner,
+    loginFPartner,
+    logoutFPartner
 }
