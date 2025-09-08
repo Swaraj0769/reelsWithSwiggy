@@ -8,34 +8,6 @@ const FoodPartnerRegister = () => {
 
   const navigate = useNavigate()
 
-  // const [formData, setFormData] = useState({
-  //   businessName: '',
-  //   ownerName: '',
-  //   email: '',
-  //   phone: '',
-  //   address: '',
-  //   cuisineType: '',
-  //   password: '',
-  //   confirmPassword: ''
-  // });
-  // const [showPassword, setShowPassword] = useState(false);
-  // const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  // const [isLoading, setIsLoading] = useState(false);
-  // const [agreedToTerms, setAgreedToTerms] = useState(false);
-
-  // const cuisineTypes = [
-  //   'Indian', 'Chinese', 'Italian', 'Mexican', 'Thai', 'Japanese', 
-  //   'American', 'Mediterranean', 'Fast Food', 'Desserts', 'Beverages', 'Other'
-  // ];
-
-  // const handleInput className='form-input'Change = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData(prev => ({
-  //     ...prev,
-  //     [name]: value
-  //   }));
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     
@@ -46,26 +18,26 @@ const FoodPartnerRegister = () => {
     const password = e.target.password.value;
     const address = e.target.address.value;
 
-    axios.post("http://localhost:3000/api/auth/fpartner/register",{
-      businessName,
+    axios.post("http://localhost:3000/api/auth/fpartner/register", {
+      name:businessName,
       contactName,
       phone,
       email,
       password,
       address
-    },{ withCredentials:true })
-      .then(response =>{
-        console.log(response.data )
-        navigate('/create-food')
+    }, { withCredentials: true })
+      .then(response => {
+        console.log(response.data);
+        navigate("/create-food"); // Redirect to create food page after successful registration
       })
-      .catch(error =>{
-        console.error("there was an error registering!", error )
-      })
+      .catch(error => {
+        console.error("There was an error registering!", error);
+      });
   };
 
   return (
     <div className="auth-container">
-      <div className="auth-card" style={{ maxWidth: '500px' }}>
+      <div className="auth-card" style={{ maxWidth: '700px' }}>
         <div className="auth-header">
           <div className="auth-logo">
             🏪
