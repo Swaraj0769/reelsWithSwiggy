@@ -7,6 +7,7 @@ import UserForgetPassword from '../components/auth/UserForgetPassword'
 import FoodPartnerLogin from '../components/auth/FoodPartnerLogin'
 import FoodPartnerRegister from '../components/auth/FoodPartnerRegister'
 import FoodPartnerForgetPassword from '../components/auth/FoodPartnerForgetPassword'
+import CreateFood from '../components/food-partner/CreateFood'
 
 const AppRoutes = () => {
   return (
@@ -19,6 +20,7 @@ const AppRoutes = () => {
             <Route path="/food-partner/login" element={<FoodPartnerLogin />} />
             <Route path="/food-partner/register" element={<FoodPartnerRegister />} />
             <Route path="/food-partner/forgot-password" element={<FoodPartnerForgetPassword />} />
+            <Route path='/create-food' element={<CreateFood />} />
         </Routes>
     </Router>
   )

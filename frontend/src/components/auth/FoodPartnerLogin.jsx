@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/auth.css';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const FoodPartnerLogin = () => {
   const [formData, setFormData] = useState({
@@ -18,15 +20,20 @@ const FoodPartnerLogin = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      setIsLoading(false);
-      console.log('Food Partner login data:', formData);
-    }, 2000);
+    const email = e.target.email.value;
+    const password = e. target.password.value;
+
+    const response = await axios.post('http://localhost:3000/api/auth/fpartner/login',{
+      email,
+      password
+    },{ withCredentials: true });
+
+    console.log(response.data);
+    
+    navigator('/create-food')
   };
 
   return (
@@ -41,63 +48,16 @@ const FoodPartnerLogin = () => {
           <span className="auth-type">Food Partner</span>
         </div>
 
-        <form className="auth-form" onSubmit={handleSubmit}>
+        <form className="auth-form" onSubmit={handleSubmit} noValidate>
           <div className="form-group">
-            <label htmlFor="email" className="form-label">
-              Business Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              className="form-input"
-              placeholder="Enter your business email"
-              required
-            />
+            <label className='form-label' htmlFor="email">Email</label>
+            <input className='form-input' id="email" name="email" type="email" placeholder="business@example.com" autoComplete="email" />
           </div>
-
           <div className="form-group">
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
-            <div className="password-input-container">
-              <input
-                type={showPassword ? 'text' : 'password'}
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleInputChange}
-                className="form-input"
-                placeholder="Enter your password"
-                required
-              />
-              <button
-                type="button"
-                className="password-toggle"
-                onClick={() => setShowPassword(!showPassword)}
-                aria-label={showPassword ? 'Hide password' : 'Show password'}
-              >
-                {showPassword ? '👁️' : '👁️‍🗨️'}
-              </button>
-            </div>
+            <label className='form-label' htmlFor="password">Password</label>
+            <input className='form-input' id="password" name="password" type="password" placeholder="Password" autoComplete="current-password" />
           </div>
-
-          <div className="auth-links">
-            <Link to="/food-partner/forgot-password" className="auth-link auth-link-secondary">
-              Forgot your password?
-            </Link>
-          </div>
-
-          <button
-            type="submit"
-            className="auth-submit"
-            disabled={isLoading}
-          >
-            {isLoading && <span className="auth-loading"></span>}
-            {isLoading ? 'Signing In...' : 'Access Dashboard'}
-          </button>
+          <button className="auth-submit" type="submit">Sign In</button>
         </form>
 
         <div className="auth-divider">

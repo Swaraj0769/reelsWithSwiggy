@@ -1,56 +1,66 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/auth.css';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const FoodPartnerRegister = () => {
-  const [formData, setFormData] = useState({
-    businessName: '',
-    ownerName: '',
-    email: '',
-    phone: '',
-    address: '',
-    cuisineType: '',
-    password: '',
-    confirmPassword: ''
-  });
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [agreedToTerms, setAgreedToTerms] = useState(false);
 
-  const cuisineTypes = [
-    'Indian', 'Chinese', 'Italian', 'Mexican', 'Thai', 'Japanese', 
-    'American', 'Mediterranean', 'Fast Food', 'Desserts', 'Beverages', 'Other'
-  ];
+  const navigate = useNavigate()
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
+  // const [formData, setFormData] = useState({
+  //   businessName: '',
+  //   ownerName: '',
+  //   email: '',
+  //   phone: '',
+  //   address: '',
+  //   cuisineType: '',
+  //   password: '',
+  //   confirmPassword: ''
+  // });
+  // const [showPassword, setShowPassword] = useState(false);
+  // const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [agreedToTerms, setAgreedToTerms] = useState(false);
+
+  // const cuisineTypes = [
+  //   'Indian', 'Chinese', 'Italian', 'Mexican', 'Thai', 'Japanese', 
+  //   'American', 'Mediterranean', 'Fast Food', 'Desserts', 'Beverages', 'Other'
+  // ];
+
+  // const handleInput className='form-input'Change = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData(prev => ({
+  //     ...prev,
+  //     [name]: value
+  //   }));
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    if (formData.password !== formData.confirmPassword) {
-      alert('Passwords do not match');
-      return;
-    }
-    
-    if (!agreedToTerms) {
-      alert('Please agree to the terms and conditions');
-      return;
-    }
-    
-    setIsLoading(true);
-    
-    // Simulate API call
-    setTimeout(() => {
-      setIsLoading(false);
-      console.log('Food Partner registration data:', formData);
-    }, 2000);
+    const businessName = e.target.businessName.value;
+    const contactName = e.target.contactName.value;
+    const phone = e.target.phone.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    const address = e.target.address.value;
+
+    axios.post("http://localhost:3000/api/auth/fpartner/register",{
+      businessName,
+      contactName,
+      phone,
+      email,
+      password,
+      address
+    },{ withCredentials:true })
+      .then(response =>{
+        console.log(response.data )
+        navigate('/create-food')
+      })
+      .catch(error =>{
+        console.error("there was an error registering!", error )
+      })
   };
 
   return (
@@ -65,192 +75,35 @@ const FoodPartnerRegister = () => {
           <span className="auth-type">Food Partner</span>
         </div>
 
-        <form className="auth-form" onSubmit={handleSubmit}>
+        <form className="auth-form" onSubmit={handleSubmit} noValidate>
           <div className="form-group">
-            <label htmlFor="businessName" className="form-label">
-              Restaurant/Business Name
-            </label>
-            <input
-              type="text"
-              id="businessName"
-              name="businessName"
-              value={formData.businessName}
-              onChange={handleInputChange}
-              className="form-input"
-              placeholder="Enter your restaurant name"
-              required
-            />
+            <label className='form-label' htmlFor="businessName">Business Name</label>
+            <input className='form-input' id="businessName" name="businessName" placeholder="Tasty Bites" autoComplete="organization" />
           </div>
-
-          <div className="form-group">
-            <label htmlFor="ownerName" className="form-label">
-              Owner/Manager Name
-            </label>
-            <input
-              type="text"
-              id="ownerName"
-              name="ownerName"
-              value={formData.ownerName}
-              onChange={handleInputChange}
-              className="form-input"
-              placeholder="Enter owner/manager name"
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="email" className="form-label">
-              Business Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              className="form-input"
-              placeholder="Enter your business email"
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="phone" className="form-label">
-              Contact Number
-            </label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleInputChange}
-              className="form-input"
-              placeholder="Enter your contact number"
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="address" className="form-label">
-              Restaurant Address
-            </label>
-            <textarea
-              id="address"
-              name="address"
-              value={formData.address}
-              onChange={handleInputChange}
-              className="form-input"
-              placeholder="Enter your restaurant address"
-              rows="3"
-              required
-              style={{ resize: 'vertical', minHeight: '80px' }}
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="cuisineType" className="form-label">
-              Cuisine Type
-            </label>
-            <select
-              id="cuisineType"
-              name="cuisineType"
-              value={formData.cuisineType}
-              onChange={handleInputChange}
-              className="form-input"
-              required
-            >
-              <option value="">Select cuisine type</option>
-              {cuisineTypes.map((cuisine) => (
-                <option key={cuisine} value={cuisine}>
-                  {cuisine}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
-            <div className="password-input-container">
-              <input
-                type={showPassword ? 'text' : 'password'}
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleInputChange}
-                className="form-input"
-                placeholder="Create a password"
-                required
-                minLength="8"
-              />
-              <button
-                type="button"
-                className="password-toggle"
-                onClick={() => setShowPassword(!showPassword)}
-                aria-label={showPassword ? 'Hide password' : 'Show password'}
-              >
-                {showPassword ? '👁️' : '👁️‍🗨️'}
-              </button>
+          <div className="two-col">
+            <div className="form-group">
+              <label className='form-label' htmlFor="contactName">Contact Name</label>
+              <input className='form-input' id="contactName" name="contactName" placeholder="Jane Doe" autoComplete="name" />
+            </div>
+            <div className="form-group">
+              <label className='form-label' htmlFor="phone">Phone</label>
+              <input className='form-input' id="phone" name="phone" placeholder="+1 555 123 4567" autoComplete="tel" />
             </div>
           </div>
-
-          <div className="form-group">
-            <label htmlFor="confirmPassword" className="form-label">
-              Confirm Password
-            </label>
-            <div className="password-input-container">
-              <input
-                type={showConfirmPassword ? 'text' : 'password'}
-                id="confirmPassword"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleInputChange}
-                className="form-input"
-                placeholder="Confirm your password"
-                required
-                minLength="8"
-              />
-              <button
-                type="button"
-                className="password-toggle"
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
-              >
-                {showConfirmPassword ? '👁️' : '👁️‍🗨️'}
-              </button>
+            <div className="form-group">
+              <label className='form-label' htmlFor="email">Email</label>
+              <input className='form-input' id="email" name="email" type="email" placeholder="business@example.com" autoComplete="email" />
             </div>
-          </div>
-
           <div className="form-group">
-            <label className="checkbox-group">
-              <input
-                type="checkbox"
-                checked={agreedToTerms}
-                onChange={(e) => setAgreedToTerms(e.target.checked)}
-              />
-              <span className="form-label">
-                I agree to the{' '}
-                <Link to="/partner-terms" className="auth-link">
-                  Partner Terms and Conditions
-                </Link>{' '}
-                and{' '}
-                <Link to="/privacy" className="auth-link">
-                  Privacy Policy
-                </Link>
-                . I understand that my restaurant will be subject to verification.
-              </span>
-            </label>
+            <label className='form-label' htmlFor="password">Password</label>
+            <input className='form-input' id="password" name="password" type="password" placeholder="Create password" autoComplete="new-password" />
           </div>
-
-          <button
-            type="submit"
-            className="auth-submit"
-            disabled={isLoading}
-          >
-            {isLoading && <span className="auth-loading"></span>}
-            {isLoading ? 'Creating Account...' : 'Register as Partner'}
-          </button>
+          <div className="form-group">
+            <label className='form-label' htmlFor="address">Address</label>
+            <input className='form-input' id="address" name="address" placeholder="123 Market Street" autoComplete="street-address" />
+            <p className="small-note">Full address helps customers find you faster.</p>
+          </div>
+          <button className="auth-submit" type="submit">Create Partner Account</button>
         </form>
 
         <div className="auth-divider">

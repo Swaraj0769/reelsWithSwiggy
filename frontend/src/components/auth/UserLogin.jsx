@@ -1,32 +1,42 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/auth.css';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const UserLogin = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
-  const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
+  const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  // const [formData, setFormData] = useState({
+  //   email: '',
+  //   password: ''
+  // });
+  // const [showPassword, setShowPassword] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
+
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData(prev => ({
+  //     ...prev,
+  //     [name]: value
+  //   }));
+  // };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      setIsLoading(false);
-      console.log('User login data:', formData);
-    }, 2000);
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    const response = await axios.post("http://localhost:3000/api/auth/user/login",{
+      email,
+      password
+    }, { withCredentials:true })
+
+    console.log(response.data);
+
+    navigate('/')
   };
 
   return (
@@ -41,63 +51,16 @@ const UserLogin = () => {
           <span className="auth-type">User</span>
         </div>
 
-        <form className="auth-form" onSubmit={handleSubmit}>
+        <form className="auth-form" onSubmit={handleSubmit} noValidate>
           <div className="form-group">
-            <label htmlFor="email" className="form-label">
-              Email Address
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              className="form-input"
-              placeholder="Enter your email"
-              required
-            />
+            <label htmlFor="email" className="form-label">Email</label>
+            <input id="email" name="email" className="form-input" type="email" placeholder="you@example.com" autoComplete="email" />
           </div>
-
           <div className="form-group">
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
-            <div className="password-input-container">
-              <input
-                type={showPassword ? 'text' : 'password'}
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleInputChange}
-                className="form-input"
-                placeholder="Enter your password"
-                required
-              />
-              <button
-                type="button"
-                className="password-toggle"
-                onClick={() => setShowPassword(!showPassword)}
-                aria-label={showPassword ? 'Hide password' : 'Show password'}
-              >
-                {showPassword ? '👁️' : '👁️‍🗨️'}
-              </button>
-            </div>
+            <label htmlFor="password" className="form-label">Password</label>
+            <input id="password" name="password" className="form-input" type="password" placeholder="••••••••" autoComplete="current-password" />
           </div>
-
-          <div className="auth-links">
-            <Link to="/user/forgot-password" className="auth-link auth-link-secondary">
-              Forgot your password?
-            </Link>
-          </div>
-
-          <button
-            type="submit"
-            className="auth-submit"
-            disabled={isLoading}
-          >
-            {isLoading && <span className="auth-loading"></span>}
-            {isLoading ? 'Signing In...' : 'Sign In'}
-          </button>
+          <button className="auth-submit" type="submit">Sign In</button>
         </form>
 
         <div className="auth-divider">

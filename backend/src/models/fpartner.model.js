@@ -6,7 +6,7 @@ const foodPartnerSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    ownerName:{
+    contactName:{
         type: String,
         required: true
     },
@@ -19,12 +19,9 @@ const foodPartnerSchema = new mongoose.Schema({
         type: String,
         required : true
     },
-    phoneNo:{
+    phone:{
         type: Number,
         required: true,
-    },
-    cuisine:{
-        type: String,
     },
     password:{
         type:String,
