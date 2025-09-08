@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/variables.css';
+import '../../styles/variables.css';
 
 const Home = () => {
   return (

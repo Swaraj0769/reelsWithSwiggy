@@ -1,6 +1,6 @@
 import React from 'react'
 import {BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import Home from '../components/Home'
+import Home from '../components/general/Home'
 import UserLogin from '../components/auth/UserLogin'
 import UserRegister from '../components/auth/UserRegister'
 import UserForgetPassword from '../components/auth/UserForgetPassword'

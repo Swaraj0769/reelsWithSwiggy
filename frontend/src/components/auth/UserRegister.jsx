@@ -1,49 +1,73 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/auth.css';
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 const UserRegister = () => {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    password: '',
-    confirmPassword: ''
-  });
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [agreedToTerms, setAgreedToTerms] = useState(false);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
+  const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  // const [formData, setFormData] = useState({
+  //   firstName: '',
+  //   lastName: '',
+  //   email: '',
+  //   phone: '',
+  //   password: '',
+  //   confirmPassword: ''
+  // });
+  // const [showPassword, setShowPassword] = useState(false);
+  // const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [agreedToTerms, setAgreedToTerms] = useState(false);
+
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData(prev => ({
+  //     ...prev,
+  //     [name]: value
+  //   }));
+  // };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const firstName = e.target.firstName.value;
+    const lastName = e.target.lastName.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
     
-    if (formData.password !== formData.confirmPassword) {
-      alert('Passwords do not match');
-      return;
-    }
+      // if (formData.password !== formData.confirmPassword) {
+      //   alert('Passwords do not match');
+      //   return;
+      // }
+      
+      // if (!agreedToTerms) {
+      //   alert('Please agree to the terms and conditions');
+      //   return;
+      // }
+      
+      // setIsLoading(true);
+      
+      // // Simulate API call
+      // setTimeout(() => {
+      //   setIsLoading(false);
+      //   console.log('User registration data:', formData);
+      // }, 2000);
+
+
+    const response = await axios.post("http://localhost:3000/api/auth/user/register",{
+      fullName: firstName+ " "+ lastName,
+      email,
+      password
+    },{
+      withCredentials: true
+    })
+
+    console.log(response.data);
+
+    navigate("/")
     
-    if (!agreedToTerms) {
-      alert('Please agree to the terms and conditions');
-      return;
-    }
-    
-    setIsLoading(true);
-    
-    // Simulate API call
-    setTimeout(() => {
-      setIsLoading(false);
-      console.log('User registration data:', formData);
-    }, 2000);
   };
 
   return (
@@ -58,7 +82,7 @@ const UserRegister = () => {
           <span className="auth-type">User</span>
         </div>
 
-        <form className="auth-form" onSubmit={handleSubmit}>
+        {/* <form className="auth-form" onSubmit={handleSubmit}>
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="firstName" className="form-label">
@@ -204,9 +228,31 @@ const UserRegister = () => {
             disabled={isLoading}
           >
             {isLoading && <span className="auth-loading"></span>}
-            {isLoading ? 'Creating Account...' : 'Create Account'}
+            {isLoading ? '/' : 'Create Account'}
           </button>
-        </form>
+        </form> */}
+
+<form className="auth-form" onSubmit={handleSubmit} noValidate>
+                    <div className="two-col">
+                        <div className="form-group">
+                            <label htmlFor="firstName" className="form-label">First Name</label>
+                            <input id="firstName" name="firstName" className="form-input" placeholder="Jane" autoComplete="given-name" />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="lastName" className="form-label">Last Name</label>
+                            <input id="lastName" name="lastName" className="form-input" placeholder="Doe" autoComplete="family-name" />
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="email" className="form-label">Email</label>
+                        <input id="email" name="email"  className="form-input" type="email" placeholder="you@example.com" autoComplete="email" />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="password" className="form-label">Password</label>
+                        <input id="password" name="password" className="form-input" type="password" placeholder="••••••••" autoComplete="new-password" />
+                    </div>
+                    <button className="auth-submit" type="submit">Sign Up</button>
+                </form>
 
         <div className="auth-divider">
           <span>Already have an account?</span>
