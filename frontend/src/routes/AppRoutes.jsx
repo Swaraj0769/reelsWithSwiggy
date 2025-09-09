@@ -21,6 +21,7 @@ const AppRoutes = () => {
             <Route path="/food-partner/register" element={<FoodPartnerRegister />} />
             <Route path="/food-partner/forgot-password" element={<FoodPartnerForgetPassword />} />
             <Route path='/create-food' element={<CreateFood />} />
+            <Route path='/food-partner/:id' element={<h1>hello</h1>} />
         </Routes>
     </Router>
   )

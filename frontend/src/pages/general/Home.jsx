@@ -31,7 +31,7 @@ const Home = () => {
     <div ref={containerRef} className="reels-container">
       {video.map((reel) => (
         <div className="reel-item" key={reel.id}>
-          <video className="reel-video" ref={setVideoRef(reel.id)} src={reel.src} preload='metadata' muted loop playsInline></video>
+          <video className="reel-video" ref={setVideoRef(reel.id)} src={reel.video} preload='metadata' muted loop playsInline></video>
           <div className="reel-overlay">
             <div className="reel-description">{reel.description}</div>
             <div className="reel-actions">
