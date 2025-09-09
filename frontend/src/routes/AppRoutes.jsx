@@ -1,13 +1,13 @@
 import React from 'react'
 import {BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import Home from '../components/general/Home'
-import UserLogin from '../components/auth/UserLogin'
-import UserRegister from '../components/auth/UserRegister'
-import UserForgetPassword from '../components/auth/UserForgetPassword'
-import FoodPartnerLogin from '../components/auth/FoodPartnerLogin'
-import FoodPartnerRegister from '../components/auth/FoodPartnerRegister'
-import FoodPartnerForgetPassword from '../components/auth/FoodPartnerForgetPassword'
-import CreateFood from '../components/food-partner/CreateFood'
+import Home from '../pages/general/Home'
+import UserLogin from '../pages/auth/UserLogin'
+import UserRegister from '../pages/auth/UserRegister'
+import UserForgetPassword from '../pages/auth/UserForgetPassword'
+import FoodPartnerLogin from '../pages/auth/FoodPartnerLogin'
+import FoodPartnerRegister from '../pages/auth/FoodPartnerRegister'
+import FoodPartnerForgetPassword from '../pages/auth/FoodPartnerForgetPassword'
+import CreateFood from '../pages/food-partner/CreateFood'
 
 const AppRoutes = () => {
   return (
