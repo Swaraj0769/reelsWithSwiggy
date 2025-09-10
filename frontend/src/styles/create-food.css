@@ -1,0 +1,437 @@
+@import './variables.css';
+
+/* Create Food Page Styles - Mobile First Approach */
+
+/* Container */
+.create-food-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  padding: var(--spacing-sm);
+}
+
+/* Main Card */
+.create-food-card {
+  background: var(--bg-primary);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  padding: var(--spacing-lg);
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid var(--border-color);
+  transition: all var(--transition-normal);
+}
+
+/* Header Section */
+.create-food-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 2px solid var(--border-color);
+}
+
+.create-food-logo {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+  border-radius: var(--radius-lg);
+  margin: 0 auto var(--spacing-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-2xl);
+  box-shadow: var(--shadow-md);
+}
+
+.create-food-title {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.create-food-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin-bottom: 0;
+}
+
+/* Form Styles */
+.create-food-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.form-label {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+/* Video Upload Styles */
+.video-upload-container {
+  position: relative;
+}
+
+.video-input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.video-upload-display {
+  border: 2px dashed var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  text-align: center;
+  background: var(--bg-secondary);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-upload-display:hover {
+  border-color: var(--primary-color);
+  background: var(--bg-tertiary);
+}
+
+.video-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.upload-icon {
+  font-size: var(--font-size-4xl);
+  color: var(--text-muted);
+}
+
+.upload-text {
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.upload-hint {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.video-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  width: 100%;
+}
+
+.preview-video {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.video-name {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin: 0;
+  word-break: break-all;
+}
+
+/* Input Styles */
+.form-input,
+.form-textarea {
+  padding: var(--spacing-md);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+  font-family: inherit;
+  width: 100%;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.form-input.error,
+.form-textarea.error {
+  border-color: var(--border-error);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Error Messages */
+.error-message {
+  color: var(--border-error);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  margin-top: var(--spacing-xs);
+}
+
+/* Submit Button */
+.create-food-submit {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+  color: var(--text-white);
+  border: none;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+}
+
+.create-food-submit:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--primary-hover), var(--primary-color));
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.create-food-submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.create-food-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--text-white);
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Tablet Styles */
+@media (min-width: 768px) {
+  .create-food-container {
+    padding: var(--spacing-md);
+  }
+  
+  .create-food-card {
+    padding: var(--spacing-xl);
+    max-width: 600px;
+  }
+  
+  .create-food-title {
+    font-size: var(--font-size-3xl);
+  }
+  
+  .create-food-subtitle {
+    font-size: var(--font-size-base);
+  }
+  
+  .video-upload-display {
+    min-height: 250px;
+  }
+  
+  .preview-video {
+    max-height: 250px;
+  }
+  
+  .form-input,
+  .form-textarea {
+    padding: var(--spacing-lg);
+    font-size: var(--font-size-lg);
+  }
+  
+  .create-food-submit {
+    padding: var(--spacing-lg) var(--spacing-xl);
+    font-size: var(--font-size-lg);
+  }
+}
+
+/* Desktop Styles */
+@media (min-width: 1024px) {
+  .create-food-container {
+    padding: var(--spacing-lg);
+  }
+  
+  .create-food-card {
+    padding: var(--spacing-2xl);
+    max-width: 700px;
+  }
+  
+  .create-food-title {
+    font-size: var(--font-size-4xl);
+  }
+  
+  .create-food-subtitle {
+    font-size: var(--font-size-lg);
+  }
+  
+  .video-upload-display {
+    min-height: 300px;
+  }
+  
+  .preview-video {
+    max-height: 300px;
+  }
+  
+  .form-group {
+    gap: var(--spacing-md);
+  }
+  
+  .form-label {
+    font-size: var(--font-size-base);
+  }
+  
+  .form-input,
+  .form-textarea {
+    padding: var(--spacing-lg);
+  }
+  
+  .create-food-submit {
+    padding: var(--spacing-lg) var(--spacing-2xl);
+    font-size: var(--font-size-lg);
+  }
+}
+
+/* Large Desktop Styles */
+@media (min-width: 1440px) {
+  .create-food-card {
+    max-width: 800px;
+  }
+  
+  .video-upload-display {
+    min-height: 350px;
+  }
+  
+  .preview-video {
+    max-height: 350px;
+  }
+}
+
+/* Dark Theme Adjustments */
+.dark-theme .create-food-card {
+  background: var(--bg-primary);
+  border-color: var(--border-color);
+}
+
+.dark-theme .video-upload-display {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+.dark-theme .video-upload-display:hover {
+  background: var(--bg-tertiary);
+}
+
+.dark-theme .form-input,
+.dark-theme .form-textarea {
+  background: var(--bg-primary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .create-food-card {
+    border: 2px solid var(--text-primary);
+  }
+  
+  .form-input,
+  .form-textarea {
+    border-width: 2px;
+  }
+  
+  .create-food-submit {
+    border: 2px solid var(--text-primary);
+  }
+  
+  .video-upload-display {
+    border-width: 3px;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .loading-spinner {
+    animation: none;
+  }
+}
+
+/* Focus Management */
+.create-food-card:focus-within {
+  box-shadow: var(--shadow-xl), 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+/* Print Styles */
+@media print {
+  .create-food-container {
+    background: white;
+    padding: 0;
+  }
+  
+  .create-food-card {
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+  
+  .create-food-submit {
+    display: none;
+  }
+  
+  .video-upload-display {
+    border: 1px solid #000;
+  }
+}
