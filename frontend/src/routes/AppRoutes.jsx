@@ -1,6 +1,7 @@
 import React from 'react'
 import {BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Home from '../pages/general/Home'
+import Saved from '../pages/general/Saved'
 import UserLogin from '../pages/auth/UserLogin'
 import UserRegister from '../pages/auth/UserRegister'
 import UserForgetPassword from '../pages/auth/UserForgetPassword'
@@ -15,6 +16,7 @@ const AppRoutes = () => {
     <Router>
         <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/saved" element={<Saved />} />
             <Route path="/user/login" element={<UserLogin />} />
             <Route path="/user/register" element={<UserRegister />} />
             <Route path="/user/forgot-password" element={<UserForgetPassword />} />
