@@ -1,26 +1,30 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import '../../styles/create-food.css'
+import {useNavigate} from 'react-router-dom'
 
 const CreateFood = () => {
-  const [formData, setFormData] = useState({
+  const [formInfo, setFormInfo] = useState({
     video: null,
     name: '',
     description: ''
   })
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
+  // const [videoFile, setVideoFile] = useState(null)
+
+  const navigate = useNavigate()
 
   const handleInputChange = (e) => {
     const { name, value, files } = e.target
     
     if (name === 'video') {
-      setFormData(prev => ({
+      setFormInfo(prev => ({
         ...prev,
         [name]: files[0] || null
       }))
     } else {
-      setFormData(prev => ({
+      setFormInfo(prev => ({
         ...prev,
         [name]: value
       }))
@@ -38,19 +42,19 @@ const CreateFood = () => {
   const validateForm = () => {
     const newErrors = {}
     
-    if (!formData.video) {
+    if (!formInfo.video) {
       newErrors.video = 'Please select a video file'
     }
     
-    if (!formData.name.trim()) {
+    if (!formInfo.name.trim()) {
       newErrors.name = 'Food name is required'
-    } else if (formData.name.trim().length < 2) {
+    } else if (formInfo.name.trim().length < 2) {
       newErrors.name = 'Food name must be at least 2 characters'
     }
     
-    if (!formData.description.trim()) {
+    if (!formInfo.description.trim()) {
       newErrors.description = 'Description is required'
-    } else if (formData.description.trim().length < 10) {
+    } else if (formInfo.description.trim().length < 10) {
       newErrors.description = 'Description must be at least 10 characters'
     }
     
@@ -69,13 +73,13 @@ const CreateFood = () => {
     
     try {
       // Here you would typically send the data to your backend
-      console.log('Form data:', formData)
+      console.log('Form data:', formInfo)
       
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 2000))
       
       // Reset form after successful submission
-      setFormData({
+      setFormInfo({
         video: null,
         name: '',
         description: ''
@@ -90,6 +94,24 @@ const CreateFood = () => {
     }
   }
 
+  const onSubmit = async (e)=>{
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append('name', formInfo.name )
+    formData.append('description', formInfo.description)
+    formData.append("video", formInfo.video)
+
+    const response = await axios.post('http://localhost:3000/api/food', formData, {
+      withCredentials: true
+    })
+
+    console.log(response.data);
+    navigate('/')
+    
+  }
+
   return (
     <div className="create-food-container">
       <div className="create-food-card">
@@ -101,7 +123,7 @@ const CreateFood = () => {
           <p className="create-food-subtitle">Share your delicious creation with the world</p>
         </div>
 
-        <form className="create-food-form" onSubmit={handleSubmit}>
+        <form className="create-food-form" onSubmit={onSubmit}>
           {/* Video Upload Field */}
           <div className="form-group">
             <label htmlFor="video" className="form-label">
@@ -118,14 +140,14 @@ const CreateFood = () => {
                 required
               />
               <div className="video-upload-display">
-                {formData.video ? (
+                {formInfo.video ? (
                   <div className="video-preview">
                     <video
-                      src={URL.createObjectURL(formData.video)}
+                      src={URL.createObjectURL(formInfo.video)}
                       controls
                       className="preview-video"
                     />
-                    <p className="video-name">{formData.video.name}</p>
+                    <p className="video-name">{formInfo.video.name}</p>
                   </div>
                 ) : (
                   <div className="video-placeholder">
@@ -148,7 +170,7 @@ const CreateFood = () => {
               type="text"
               id="name"
               name="name"
-              value={formData.name}
+              value={formInfo.name}
               onChange={handleInputChange}
               placeholder="Enter the name of your dish"
               className={`form-input ${errors.name ? 'error' : ''}`}
@@ -165,7 +187,7 @@ const CreateFood = () => {
             <textarea
               id="description"
               name="description"
-              value={formData.description}
+              value={formInfo.description}
               onChange={handleInputChange}
               placeholder="Describe your dish, ingredients, cooking method, etc."
               className={`form-textarea ${errors.description ? 'error' : ''}`}
@@ -180,6 +202,7 @@ const CreateFood = () => {
             type="submit"
             className="create-food-submit"
             disabled={isSubmitting}
+            
           >
             {isSubmitting ? (
               <>
