@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import '../../styles/variables.css';
 import '../../styles/reels.css';
 import axios from 'axios';
-import { response } from '../../../../backend/src/app';
+// import response from '../../../../backend/src/app';
 
 
 const Home = () => {
@@ -31,11 +31,12 @@ const Home = () => {
     <div ref={containerRef} className="reels-container">
       {video.map((reel) => (
         <div className="reel-item" key={reel.id}>
-          <video className="reel-video" ref={setVideoRef(reel.id)} src={reel.video} preload='metadata' muted loop playsInline></video>
+          <video className="reel-video" ref={setVideoRef(reel._id)} src={reel.video} preload='metadata' muted loop playsInline></video>
           <div className="reel-overlay">
             <div className="reel-description">{reel.description}</div>
             <div className="reel-actions">
-              <Link to={"/food-partner/"+ item.foodPartner} className="visit-store-btn">Visit store</Link>
+              <Link to={"/food-partner/"+ reel.foodPartner} className="visit-store-btn">Visit store console.log(reel.foodPartner);
+              </Link>
             </div>
           </div>
         </div>

@@ -1,0 +1,167 @@
+/* Food Partner Profile Styles */
+
+.profile-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: var(--spacing-md);
+  background-color: var(--bg-primary);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Header Section */
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 2px solid var(--border-color);
+}
+
+/* Profile Logo */
+.profile-logo {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.logo-placeholder {
+  width: 80px;
+  height: 80px;
+  background-color: var(--bg-tertiary);
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Business Information */
+.business-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-left: var(--spacing-lg);
+}
+
+.info-field {
+  background-color: var(--bg-tertiary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  min-width: 200px;
+  box-shadow: var(--shadow-sm);
+}
+
+.info-field span {
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+}
+
+/* Statistics Section */
+.statistics-section {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-md);
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.stat-label {
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  text-align: center;
+}
+
+.stat-value {
+  color: var(--primary-color);
+  font-size: var(--font-size-xl);
+  font-weight: bold;
+}
+
+/* Video Grid Section */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-md);
+}
+
+.video-placeholder {
+  aspect-ratio: 1;
+  background-color: var(--bg-tertiary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-fast);
+  cursor: pointer;
+}
+
+.video-placeholder:hover {
+  background-color: var(--primary-light);
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.video-placeholder span {
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .profile-container {
+    margin: var(--spacing-sm);
+    padding: var(--spacing-sm);
+  }
+  
+  .business-info {
+    margin-left: var(--spacing-sm);
+  }
+  
+  .info-field {
+    min-width: 150px;
+  }
+  
+  .video-grid {
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+  }
+}
+
+/* Dark theme adjustments */
+.dark-theme .profile-container {
+  background-color: var(--bg-primary);
+}
+
+.dark-theme .logo-placeholder,
+.dark-theme .info-field,
+.dark-theme .video-placeholder {
+  background-color: var(--bg-tertiary);
+  border-color: var(--border-color);
+}
+
+.dark-theme .statistics-section,
+.dark-theme .video-grid {
+  background-color: var(--bg-secondary);
+}
