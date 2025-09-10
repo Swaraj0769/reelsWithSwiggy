@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom';
 import '../../styles/variables.css';
 import '../../styles/reels.css';
 import axios from 'axios';
-// import response from '../../../../backend/src/app';
 
 
 const Home = () => {
@@ -16,6 +15,8 @@ const Home = () => {
   useEffect(() =>{
     axios.get("http://localhost:3000/api/food", { withCredentials: true })
     .then(response =>{
+      console.log(response.data);
+      
       setVideo(response.data.foodItems)
     })
   })
@@ -28,7 +29,7 @@ const Home = () => {
     videoRefs.current.set(id, el)
   }
 
-  async function likeVideo(req,res) {
+  async function likeVideo(item) {
     const response = await axios.post("http://localhost:3000/api/food/like", { foodId: item._id}, {withCredentials:true})
   
     if(response.data.like){
@@ -40,15 +41,15 @@ const Home = () => {
     }
   }
 
-  async function saveVideo(req,res) {
+  async function saveVideo(item) {
     const response = await axios.post("http://localhost:3000/api/food/save", { foodId: item._id}, {withCredentials:true})
   
     if(response.data.save){
       console.log("Video saved");
-      setVideo((prev)=> prev.map((v) => v._id === item._id ? {...v, saved: v.saved +1} : v))
+      setVideo((prev)=> prev.map((v) => v._id === item._id ? {...v, savesCount: v.savesCount +1} : v))
     }else{
       console.log("Video unsaved");
-      setVideo((prev)=> prev.map((v) => v._id === item._id ? {...v, saved: v.saved - 1} : v))
+      setVideo((prev)=> prev.map((v) => v._id === item._id ? {...v, savesCount: v.savesCount - 1} : v))
     }
   }
 
