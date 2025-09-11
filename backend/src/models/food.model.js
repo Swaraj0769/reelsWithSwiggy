@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const foodPartnerModel = require('./fpartner.model')
+const foodPartnerModel = require('./foodpartner.model')
 
 const foodSchema = new mongoose.Schema({
     name:{
