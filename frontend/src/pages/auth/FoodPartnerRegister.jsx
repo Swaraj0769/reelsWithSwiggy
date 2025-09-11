@@ -43,7 +43,7 @@ const FoodPartnerRegister = () => {
           <p className="auth-subtitle">Grow your business with our platform.</p>
         </header>
         <nav className="auth-alt-action" style={{marginTop: '-4px'}}>
-          <strong style={{fontWeight:600}}>Switch:</strong> <Link to="/user/register">User</Link> • <Link to="/food-partner/register">Food partner</Link>
+          <strong style={{fontWeight:600}}>Switch:</strong> <Link to="/user/register">User</Link> • <Link to="/fpartner/register">Food partner</Link>
         </nav>
         <form className="auth-form" onSubmit={handleSubmit} noValidate>
           <div className="field-group">
@@ -76,7 +76,7 @@ const FoodPartnerRegister = () => {
           <button className="auth-submit" type="submit">Create Partner Account</button>
         </form>
         <div className="auth-alt-action">
-          Already a partner? <Link to="/food-partner/login">Sign in</Link>
+          Already a partner? <Link to="/fpartner/login">Sign in</Link>
         </div>
       </div>
     </div>

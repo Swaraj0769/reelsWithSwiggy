@@ -11,7 +11,7 @@ const Profile = () => {
   const [video, setVideo] = useState([])
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/food-partner/${id}`, {withCredentials: true})
+    axios.get(`http://localhost:3000/api/fpartner/${id}`, {withCredentials: true})
     .then(response =>{
         setProfile(response.data.foodPartner)
         setVideo(response.data.foodPartner.video)
