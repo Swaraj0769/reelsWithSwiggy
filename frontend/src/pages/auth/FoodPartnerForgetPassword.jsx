@@ -112,13 +112,13 @@ const FoodPartnerForgetPassword = () => {
         </div>
 
         <div className="auth-links">
-          <Link to="/fpartner/login" className="auth-link">
+          <Link to="/food-partner/login" className="auth-link">
             Back to Partner Login
           </Link>
         </div>
 
         <div className="auth-links" style={{ marginTop: '1rem' }}>
-          <Link to="/fpartner/register" className="auth-link auth-link-secondary">
+          <Link to="/food-partner/register" className="auth-link auth-link-secondary">
             New to our platform? Register as Partner
           </Link>
         </div>
